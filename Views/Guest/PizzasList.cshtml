@@ -1,0 +1,80 @@
+﻿@{
+    ViewData["Title"] = "Lista pizze";
+}
+
+<h1>Lista pizze:</h1>
+
+<section id="loading" class="d-flex justify-content-center">
+    <div>
+        <div class="lds-dual-ring"></div>
+        <p>Caricamento!</p>
+    </div>
+    
+</section>
+
+<table class="table">
+
+    <thead>
+        <tr>
+            <th scope="col">Name</th>
+            <th scope="col">Description</th>
+            <th scope="col">Image</th>
+            <th scope="col">price</th>
+        </tr>
+    </thead>
+
+    <tbody id="pizza-list">
+        <!-- chiamata Axios per ottenere lista pizze-->
+    </tbody>
+
+</table>
+
+<script type="text/javascript">
+
+    let isLoading = true;
+
+    axios.get("api/Pizza")
+    .then(res =>{
+        console.log(res.data);
+
+        if(res.data.length > 0){
+
+            /* Con ciclo FOR
+                for(let i = 0; i < res.data.length; i++){
+                    document.querySelector("#pizza-list").innerHTML +=
+                    `
+                        <th>${res.data[i].name}</th>
+                        <td>${res.data[i].description}</td>
+                        <td> <img src="${res.data[i].image}" alt="Immagine della pizza"> </td>
+                        <td>${res.data[i].price}&euro;</td>
+                    `
+                }
+            */
+
+            res.data.forEach(pizza =>{
+                document.querySelector("#pizza-list").innerHTML += 
+                `
+                    <tr>
+                        <th>${pizza.name}</th>
+                        <td>${pizza.description}</td>
+                        <td> <img src="${pizza.image}" alt="Immagine della pizza"> </td>
+                        <td>${pizza.price.toFixed(2)}&euro;</td>
+                    </tr>
+                `
+            })
+
+            let isLoading = false;
+
+            if(!isLoading){
+                    document.querySelector("#loading").classList.add("d-none");
+            }
+        }
+        else{
+            document.querySelector("#pizza-list").innerHTML += " <tr> <th>Nessuna pizza! Controllare più tardi</th> </tr>"
+        }
+    })
+    .catch(err =>{
+        console.log("Error", err);
+    })
+
+</script>

@@ -7,10 +7,10 @@ using Microsoft.AspNetCore.Authorization;
 
 namespace la_mia_pizzeria_crud_webapi.Controllers
 {
-    public class HomeController : Controller
+    public class GuestController : Controller
     {
-
         public IActionResult Index() { return View(); }
+        public IActionResult PizzasList() { return View(); }
 
     }
 }
