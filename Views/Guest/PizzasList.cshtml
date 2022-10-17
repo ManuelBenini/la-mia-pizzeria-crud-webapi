@@ -9,10 +9,9 @@
         <div class="lds-dual-ring"></div>
         <p>Caricamento!</p>
     </div>
-    
 </section>
 
-<table class="table">
+<table id="pizza-table" class="table d-none">
 
     <thead>
         <tr>
@@ -33,7 +32,7 @@
 
     let isLoading = true;
 
-    axios.get("api/Pizza")
+    axios.get("/api/Pizza")
     .then(res =>{
         console.log(res.data);
 
@@ -67,6 +66,7 @@
 
             if(!isLoading){
                     document.querySelector("#loading").classList.add("d-none");
+                    document.querySelector("#pizza-table").classList.remove("d-none");
             }
         }
         else{

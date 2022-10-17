@@ -2,4 +2,57 @@
     ViewData["Title"] = "Homepage";
 }
 
-<h1>Benvenuto nella pizzeria di Giacomino! Effettuare la registrazione o l'accesso per visualizzare e modificare le pizze!</h1>
+<h1>Benvenuto nella pizzeria di Giacomino! Inserire il nome della pizza che si vuole cercare:</h1>
+<input id="pizza-to-search" type="text" value="" placeholder="Nome pizza"/>
+
+<div class="d-flex justify-content-center" id="pizza-container" style="width: 18rem;">
+    
+</div>
+
+
+<script type="text/javascript">
+
+    let typingTimer;
+    const doneTypingInterval = 1000;
+    let pizzaName = document.querySelector("#pizza-to-search");
+    let pizzaContainer = document.querySelector("#pizza-container");
+
+
+    pizzaName.addEventListener("keyup", function(){
+        clearTimeout(typingTimer);
+        typingTimer = setTimeout(doneTyping, doneTypingInterval)
+    })
+
+    function doneTyping() {
+        axios.get("/api/Pizza/SearchPizzas?userSearch=" + pizzaName.value)
+        .then(r =>{
+            console.log(r.data);
+            pizzaContainer.innerHTML = "";
+
+            if(r.data.length > 0){
+                r.data.forEach(pizza => {
+                    pizzaContainer.innerHTML +=
+                    `
+                        <div class="card me-5">
+                            <a href="Guest/Show?id=${pizza.pizzaId}">
+                                <img src="${pizza.image}" class="w-100" alt="Immagine pizza">
+                                <div class="card-body">
+                                    <h5>${pizza.name}</h5>
+                                </div>
+                            </a>
+                        </div>
+                    `
+                })
+            }
+            else{
+                pizzaContainer.innerHTML += "Non ci sono pizze che corrispondono alla ricerca!"
+            }
+            
+
+        })
+        .catch(e =>{
+
+        })
+    }
+
+</script>

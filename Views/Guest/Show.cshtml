@@ -1,0 +1,39 @@
+﻿@{
+    ViewData["Title"] = "Pizza scelta";
+}
+
+<table id="table">
+    
+</table>
+
+<script type="text/javascript">
+    axios.get("/api/Pizza/Show?id=" + window.location.search.split("=")[1])
+        .then(r => {
+            console.log(r.data);
+            document.querySelector("#table").innerHTML +=
+            `
+                <thead>
+                    <tr>
+                        <th scope="col">Name</th>
+                        <th scope="col">Description</th>
+                        <th scope="col">Image</th>
+                        <th scope="col">price</th>
+                        <th scope="col">Category</th>
+                        <th scope="col">Ingredients</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <th>${r.data.name}</th>
+                        <td>${r.data.description}</td>
+                        <td> <img src="${r.data.image}" alt="Immagine della pizza"> </td>
+                        <td>${r.data.price}&euro;</td>
+                    </tr>
+                </tbody>
+            `;
+        })
+        .catch(e => {
+
+        })
+
+</script>
