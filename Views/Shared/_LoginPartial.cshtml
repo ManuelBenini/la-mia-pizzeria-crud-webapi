@@ -33,8 +33,11 @@ else
             <a class="nav-link text-dark" id="login" asp-area="Identity" asp-page="/Account/Login"
             asp-route-returnUrl="@Url.Action("Index", "Pizzas", new { area = "" })">Login</a>
     </li>
-        <li class="nav-item">
-            <a class="nav-link text-dark" asp-controller="Guest" asp-action="PizzasList">Lista pizze</a>
-        </li>
+    <li class="nav-item">
+        <a class="nav-link text-dark" asp-controller="Guest" asp-action="PizzasList">Lista pizze</a>
+    </li>
+    <li class="nav-item">
+        <a class="nav-link text-dark" asp-controller="Guest" asp-action="MessageForm">Contattaci</a>
+    </li>
 }
 </ul>

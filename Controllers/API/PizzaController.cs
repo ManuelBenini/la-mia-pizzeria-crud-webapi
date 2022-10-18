@@ -6,7 +6,7 @@ using Models;
 namespace la_mia_pizzeria_crud_webapi.Controllers.API
 {
     //[Route("api/[controller]/[Action]")]
-    [Route("api/[controller]/[Action]")]
+    [Route("api/[controller]/[action]")]
     [ApiController]
     public class PizzaController : ControllerBase
     {
